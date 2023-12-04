@@ -24,12 +24,12 @@ public class BlackWidowPoisonItem extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.JUMP_BOOST, 20 * 60, 1));
+        firstEffectsList.add(new EffectInstance(Effects.JUMP_BOOST, 20 * 120, 0));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.POISON, 20 * 60, 1));
+        secondEffectsList.add(new EffectInstance(Effects.POISON, 20 * 60, 0));
 
         DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "sobel.json",
-                secondEffectsList, null, true, 60, playerIn);
+                secondEffectsList, null, true, 120, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

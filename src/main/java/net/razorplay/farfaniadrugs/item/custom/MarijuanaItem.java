@@ -26,8 +26,8 @@ public class MarijuanaItem extends Item {
         List<EffectInstance> firstEffectsList = new ArrayList<>();
         firstEffectsList.add(new EffectInstance(Effects.REGENERATION, 20 * 120, 1));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 240, 0));
-        secondEffectsList.add(new EffectInstance(Effects.HUNGER, 20 * 240, 0));
+        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 360, 0));
+        secondEffectsList.add(new EffectInstance(Effects.HUNGER, 20 * 360, 0));
 
         DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "phosphor.json",
                 secondEffectsList, null, true, 120, playerIn);

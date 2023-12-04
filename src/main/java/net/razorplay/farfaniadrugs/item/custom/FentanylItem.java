@@ -23,12 +23,12 @@ public class FentanylItem extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 60, 3));
+        firstEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 110, 3));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
         secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 10, 3));
 
         DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "deconverge.json",
-                secondEffectsList, null, true, 60, playerIn);
+                secondEffectsList, null, true, 110, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

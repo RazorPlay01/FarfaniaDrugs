@@ -24,11 +24,11 @@ public class CocaineItem extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.SPEED, 20 * 120, 2));
+        firstEffectsList.add(new EffectInstance(Effects.SPEED, 20 * 120, 1));
         firstEffectsList.add(new EffectInstance(Effects.HASTE, 20 * 120, 1));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 120, 0));
-        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 20 * 120, 0));
+        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 240, 0));
+        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 20 * 240, 0));
 
         DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "art.json", secondEffectsList, null, true, 120, playerIn);
 

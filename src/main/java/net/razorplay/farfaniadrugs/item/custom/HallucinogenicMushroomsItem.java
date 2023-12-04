@@ -23,12 +23,13 @@ public class HallucinogenicMushroomsItem extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 60, 1));
+        firstEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 120, 1));
+        firstEffectsList.add(new EffectInstance(Effects.SPEED, 20 * 120, 0));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 10, 1));
+        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 120, 0));
 
         DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "wobble.json",
-                secondEffectsList, null, true, 60, playerIn);
+                secondEffectsList, null, true, 120, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

@@ -22,13 +22,13 @@ public class MethamphetamineItem extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.STRENGTH, 20 * 120, 1));
-        firstEffectsList.add(new EffectInstance(Effects.RESISTANCE, 20 * 120, 1));
+        firstEffectsList.add(new EffectInstance(Effects.STRENGTH, 20 * 60, 0));
+        firstEffectsList.add(new EffectInstance(Effects.RESISTANCE, 20 * 60, 0));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 20 * 120, 0));
+        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 20 * 300, 1));
 
         DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "blur.json",
-                secondEffectsList, null, true, 120, playerIn);
+                secondEffectsList, null, true, 60, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

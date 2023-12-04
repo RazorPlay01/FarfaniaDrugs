@@ -10,7 +10,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
+import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,40 +24,18 @@ public class MariaItem extends Item {
         super(properties);
     }
 
-    /*@Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 20 * 120, 1));
-
-        // Esperamos 10 segundos antes de activar el otro efecto
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(() -> {
-            entityLiving.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20 * 120, 0, false, false));
-            entityLiving.addPotionEffect(new EffectInstance(Effects.HUNGER, 20 * 120, 0, false, false));
-            scheduler.shutdown();
-        }, 10, TimeUnit.SECONDS);
-
-        stack.damageItem(1, entityLiving, player -> player.sendBreakAnimation(entityLiving.getActiveHand()));
-
-        return super.onItemUseFinish(stack, worldIn, entityLiving);
-    }*/
-
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        FarfaniaDrugs.loadShader("phosphor.json", false);
         ItemStack stack = playerIn.getHeldItem(handIn);
 
-        // Aplicamos regeneración durante 10 segundos
-        playerIn.addPotionEffect(new EffectInstance(Effects.REGENERATION, 20 * 120, 1));
+        List<EffectInstance> firstEffectsList = new ArrayList<>();
+        firstEffectsList.add(new EffectInstance(Effects.REGENERATION, 20 * 120, 1));
+        List<EffectInstance> secondEffectsList = new ArrayList<>();
+        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 240, 0));
+        secondEffectsList.add(new EffectInstance(Effects.HUNGER, 20 * 240, 0));
 
-        // Esperamos 10 segundos antes de activar el otro efecto
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(() -> {
-            FarfaniaDrugs.loadShader((String)null, true);
-
-            playerIn.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20 * 120, 0, false, false));
-            playerIn.addPotionEffect(new EffectInstance(Effects.HUNGER, 20 * 120, 0, false, false));
-            scheduler.shutdown();
-        }, 10, TimeUnit.SECONDS);
+        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "phosphor.json",
+                secondEffectsList, null, true, 120, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

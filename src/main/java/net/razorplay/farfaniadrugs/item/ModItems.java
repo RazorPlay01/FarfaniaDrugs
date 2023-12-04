@@ -16,29 +16,30 @@ public class ModItems {
 
     public static final RegistryObject<Item> VIUDA_NEGRA =
             ITEMS.register("viuda_negra", () -> new ViudaNegraItem(
-                    new Item.Properties().maxDamage(1).group(ModItemGroup.FARFADRUGS_GROUP)));
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> COCAINE =
             ITEMS.register("cocaine", () -> new CocaItem(
-                    new Item.Properties().maxDamage(1).group(ModItemGroup.FARFADRUGS_GROUP)));
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> MARIA =
             ITEMS.register("marihuana", () -> new MariaItem(
-                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(1)));
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
 
     public static final RegistryObject<Item> META =
             ITEMS.register("meta", () -> new MetaItem(
-                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(2)));
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> FENTANILO =
             ITEMS.register("fentanilo",
                     () -> new FentaniloItem(
-                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(1)));
+                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> HONGOS_ALUCINOGENOS =
             ITEMS.register("hongos_alucinogenos",
                     () -> new HongosAlucinogenos(
-                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(1)));
+                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
 
     public static final RegistryObject<Item> CIGARRILLO =
             ITEMS.register("cigarro",
-                    () -> new CigarrilloItem(new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(4)));
+                    () -> new CigarrilloItem(
+                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(4)));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

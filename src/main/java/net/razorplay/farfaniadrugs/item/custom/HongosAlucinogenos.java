@@ -9,11 +9,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-import net.razorplay.farfaniadrugs.FarfaniaDrugs;
+import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HongosAlucinogenos extends Item {
     public HongosAlucinogenos(Properties properties) {
@@ -22,23 +21,15 @@ public class HongosAlucinogenos extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        FarfaniaDrugs.loadShader("wobble.json", false);
         ItemStack stack = playerIn.getHeldItem(handIn);
 
-        //playerIn.addVelocity(10,10,10);
-        playerIn.playSound(SoundEvents.ENTITY_GENERIC_EAT, 10, 5);
+        List<EffectInstance> firstEffectsList = new ArrayList<>();
+        firstEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 60, 1));
+        List<EffectInstance> secondEffectsList = new ArrayList<>();
+        secondEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 10, 1));
 
-        // Aplicamos regeneración durante 10 segundos
-        playerIn.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 20 * 60, 1));
-
-        // Esperamos 10 segundos antes de activar el otro efecto
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(() -> {
-            FarfaniaDrugs.loadShader((String) null, true);
-
-            playerIn.addPotionEffect(new EffectInstance(Effects.POISON, 20 * 60, 0, false, false));
-            scheduler.shutdown();
-        }, 10, TimeUnit.SECONDS);
+        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "wobble.json",
+                secondEffectsList, null, true, 60, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

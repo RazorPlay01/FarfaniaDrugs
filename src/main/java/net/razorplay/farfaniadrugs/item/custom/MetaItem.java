@@ -11,7 +11,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
+import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,21 +27,16 @@ public class MetaItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        FarfaniaDrugs.loadShader("blur.json", false);
         ItemStack stack = playerIn.getHeldItem(handIn);
 
-        // Aplicamos regeneración durante 10 segundos
-        playerIn.addPotionEffect(new EffectInstance(Effects.STRENGTH, 20 * 120, 1));
-        playerIn.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 20 * 120, 1));
+        List<EffectInstance> firstEffectsList = new ArrayList<>();
+        firstEffectsList.add(new EffectInstance(Effects.STRENGTH, 20 * 120, 1));
+        firstEffectsList.add(new EffectInstance(Effects.RESISTANCE, 20 * 120, 1));
+        List<EffectInstance> secondEffectsList = new ArrayList<>();
+        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 20 * 120, 0));
 
-        // Esperamos 10 segundos antes de activar el otro efecto
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(() -> {
-            FarfaniaDrugs.loadShader((String)null, true);
-
-            playerIn.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20 * 120, 0, false, false));
-            scheduler.shutdown();
-        }, 10, TimeUnit.SECONDS);
+        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "blur.json",
+                secondEffectsList, null, true, 120, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

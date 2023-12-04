@@ -1,27 +1,19 @@
 package net.razorplay.farfaniadrugs.item.custom;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public class MetaItem extends Item {
-    public MetaItem(Properties properties) {
+public class MethamphetamineItem extends Item {
+    public MethamphetamineItem(Properties properties) {
         super(properties);
     }
 

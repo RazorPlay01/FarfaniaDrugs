@@ -12,26 +12,24 @@ public class ModItems {
     private static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, FarfaniaDrugs.MOD_ID);
 
-    public static final RegistryObject<Item> VIUDA_NEGRA =
-            ITEMS.register("viuda_negra", () -> new ViudaNegraItem(
+    public static final RegistryObject<Item> BLACK_WIDOW_POISON =
+            ITEMS.register("black_widow_poison", () -> new BlackWidowPoisonItem(
                     new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> COCAINE =
-            ITEMS.register("cocaine", () -> new CocaItem(
+            ITEMS.register("cocaine", () -> new CocaineItem(
                     new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
-    public static final RegistryObject<Item> MARIA =
-            ITEMS.register("marihuana", () -> new MariaItem(
+    public static final RegistryObject<Item> MARIJUANA =
+            ITEMS.register("marijuana", () -> new MarijuanaItem(
                     new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
 
-    public static final RegistryObject<Item> META =
-            ITEMS.register("meta", () -> new MetaItem(
+    public static final RegistryObject<Item> METHAMPHETAMINE =
+            ITEMS.register("methamphetamine", () -> new MethamphetamineItem(
                     new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
-    public static final RegistryObject<Item> FENTANILO =
-            ITEMS.register("fentanilo",
-                    () -> new FentaniloItem(
+    public static final RegistryObject<Item> FENTANYL =
+            ITEMS.register("fentanyl", () -> new FentanylItem(
                             new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
-    public static final RegistryObject<Item> HONGOS_ALUCINOGENOS =
-            ITEMS.register("hongos_alucinogenos",
-                    () -> new HongosAlucinogenos(
+    public static final RegistryObject<Item> HALLUCINOGENIC_MUSHROOMS =
+            ITEMS.register("hallucinogenic_mushrooms", () -> new HallucinogenicMushroomsItem(
                             new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
 
     public static final RegistryObject<Item> CIGARETTE =

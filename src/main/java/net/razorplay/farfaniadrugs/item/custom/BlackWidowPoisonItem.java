@@ -8,18 +8,14 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public class ViudaNegraItem extends Item {
+public class BlackWidowPoisonItem extends Item {
 
-    public ViudaNegraItem(Properties properties) {
+    public BlackWidowPoisonItem(Properties properties) {
         super(properties);
     }
 

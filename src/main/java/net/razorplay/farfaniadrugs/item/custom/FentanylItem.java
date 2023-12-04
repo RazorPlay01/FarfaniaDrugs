@@ -7,15 +7,14 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HongosAlucinogenos extends Item {
-    public HongosAlucinogenos(Properties properties) {
+public class FentanylItem extends Item {
+    public FentanylItem(Properties properties) {
         super(properties);
     }
 
@@ -24,11 +23,11 @@ public class HongosAlucinogenos extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 60, 1));
+        firstEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 60, 3));
         List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.LUCK, 20 * 10, 1));
+        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 10, 3));
 
-        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "wobble.json",
+        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "deconverge.json",
                 secondEffectsList, null, true, 60, playerIn);
 
         stack.shrink(1);

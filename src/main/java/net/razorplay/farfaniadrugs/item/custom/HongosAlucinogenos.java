@@ -22,7 +22,7 @@ public class HongosAlucinogenos extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        FarfaniaDrugs.loadShader("art.json", false);
+        FarfaniaDrugs.loadShader("wobble.json", false);
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         //playerIn.addVelocity(10,10,10);

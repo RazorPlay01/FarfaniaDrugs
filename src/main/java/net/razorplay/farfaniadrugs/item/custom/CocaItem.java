@@ -22,7 +22,7 @@ public class CocaItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        FarfaniaDrugs.loadShader("wobble.json", false);
+        FarfaniaDrugs.loadShader("art.json", false);
 
         ItemStack stack = playerIn.getHeldItem(handIn);
 

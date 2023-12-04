@@ -9,7 +9,7 @@ import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.item.custom.*;
 
 public class ModItems {
-    private static final DeferredRegister<Item> ITEMS =
+    public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, FarfaniaDrugs.MOD_ID);
 
     public static final RegistryObject<Item> BLACK_WIDOW_POISON =

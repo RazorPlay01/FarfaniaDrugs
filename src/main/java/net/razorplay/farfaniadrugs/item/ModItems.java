@@ -1,8 +1,6 @@
 package net.razorplay.farfaniadrugs.item;
 
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,10 +34,25 @@ public class ModItems {
                     () -> new HongosAlucinogenos(
                             new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
 
-    public static final RegistryObject<Item> CIGARRILLO =
-            ITEMS.register("cigarro",
-                    () -> new CigarrilloItem(
-                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxDamage(4)));
+    public static final RegistryObject<Item> CIGARETTE =
+            ITEMS.register("cigarette",
+                    () -> new CigaretteItem(
+                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxStackSize(20)));
+
+    public static final RegistryObject<Item> CIGARETTE_1 =
+            ITEMS.register("cigarette_1",
+                    () -> new CigaretteItem(
+                            new Item.Properties().maxStackSize(20)));
+
+    public static final RegistryObject<Item> CIGARETTE_2 =
+            ITEMS.register("cigarette_2",
+                    () -> new CigaretteItem(
+                            new Item.Properties().maxStackSize(20)));
+
+    public static final RegistryObject<Item> CIGARETTE_3 =
+            ITEMS.register("cigarette_3",
+                    () -> new CigaretteItem(
+                            new Item.Properties().maxStackSize(20)));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

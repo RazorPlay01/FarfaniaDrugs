@@ -5,7 +5,10 @@
   "item.farfaniadrugs.meta": "Metanfetamina",
   "item.farfaniadrugs.fentanilo": "Fentanilo",
   "item.farfaniadrugs.hongos_alucinogenos": "Hongos Alucinogenos",
-  "item.farfaniadrugs.cigarro": "Cigarro",
+  "item.farfaniadrugs.cigarro": "Cigarrillo",
+  "item.farfaniadrugs.cigarro_1": "Cigarrillo",
+  "item.farfaniadrugs.cigarro_2": "Cigarrillo",
+  "item.farfaniadrugs.cigarro_3": "Cigarrillo",
 
   "itemGroup.farfadrugs": "Farfania Drugs"
 }

@@ -49,13 +49,6 @@ public class FarfaniaDrugs<jarName> {
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static final ItemGroup FARFADRUGSGROUP = new ItemGroup(ItemGroup.GROUPS.length, "farfadrugs") {
-        @OnlyIn(Dist.CLIENT)
-        public ItemStack createIcon() {
-            return new ItemStack(Items.CHAIN);
-        }
-    };
-
     public FarfaniaDrugs() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);

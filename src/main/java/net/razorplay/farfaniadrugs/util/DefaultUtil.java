@@ -12,7 +12,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultUtil {
-    public static void ShaderCooldown(String shader,int delay, PlayerEntity player){
+    public static void ShaderCooldown(String shader, int delay, PlayerEntity player) {
         FarfaniaDrugs.loadShader(shader, false);
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(() -> {
@@ -22,7 +22,7 @@ public class DefaultUtil {
     }
 
 
-    public static void playerApplyDrugsEffect(List<EffectInstance> firstEffectsList, String firstShader,List<EffectInstance> secondEffectsList, String secondShader,boolean isDefaultShader, int delay, PlayerEntity player) {
+    public static void playerApplyDrugsEffect(List<EffectInstance> firstEffectsList, String firstShader, List<EffectInstance> secondEffectsList, String secondShader, boolean isDefaultShader, int delay, PlayerEntity player) {
         FarfaniaDrugs.loadShader(firstShader, false);
         firstEffectsList.forEach(effect -> player.addPotionEffect(effect));
 

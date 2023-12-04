@@ -27,32 +27,28 @@ public class ModItems {
                     new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> FENTANYL =
             ITEMS.register("fentanyl", () -> new FentanylItem(
-                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> HALLUCINOGENIC_MUSHROOMS =
             ITEMS.register("hallucinogenic_mushrooms", () -> new HallucinogenicMushroomsItem(
-                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
 
     public static final RegistryObject<Item> CIGARETTE =
-            ITEMS.register("cigarette",
-                    () -> new CigaretteItem(
-                            new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxStackSize(20)));
+            ITEMS.register("cigarette", () -> new CigaretteItem(
+                    new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxStackSize(20)));
 
     public static final RegistryObject<Item> CIGARETTE_1 =
-            ITEMS.register("cigarette_1",
-                    () -> new CigaretteItem(
-                            new Item.Properties().maxStackSize(20)));
+            ITEMS.register("cigarette_1", () -> new CigaretteItem(
+                    new Item.Properties().maxStackSize(20)));
 
     public static final RegistryObject<Item> CIGARETTE_2 =
-            ITEMS.register("cigarette_2",
-                    () -> new CigaretteItem(
-                            new Item.Properties().maxStackSize(20)));
+            ITEMS.register("cigarette_2", () -> new CigaretteItem(
+                    new Item.Properties().maxStackSize(20)));
 
     public static final RegistryObject<Item> CIGARETTE_3 =
-            ITEMS.register("cigarette_3",
-                    () -> new CigaretteItem(
-                            new Item.Properties().maxStackSize(20)));
+            ITEMS.register("cigarette_3", () -> new CigaretteItem(
+                    new Item.Properties().maxStackSize(20)));
 
-    public static void register(IEventBus eventBus){
+    public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
 }

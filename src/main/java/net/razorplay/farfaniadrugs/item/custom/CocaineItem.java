@@ -30,8 +30,7 @@ public class CocaineItem extends Item {
         secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 120, 0));
         secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 20 * 120, 0));
 
-        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "art.json",
-                secondEffectsList, null, true, 120, playerIn);
+        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "art.json", secondEffectsList, null, true, 120, playerIn);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

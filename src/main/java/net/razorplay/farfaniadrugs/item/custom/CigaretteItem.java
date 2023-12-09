@@ -3,14 +3,17 @@ package net.razorplay.farfaniadrugs.item.custom;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItems;
 import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 
 public class CigaretteItem extends Item {
+    private int timer = 20;
 
     public CigaretteItem(Properties properties) {
         super(properties);
@@ -42,8 +45,8 @@ public class CigaretteItem extends Item {
             stack.shrink(1);
         }
 
-        DefaultUtil.ShaderCooldown("bumpy.json", 10, playerIn);
 
+        playerIn.addPotionEffect(new EffectInstance(ModEffects.CIGARETTE_EFFECT.get(), 20 * timer));
 
         spawnCigarretePaticles(playerIn);
 

@@ -10,5 +10,20 @@
   "item.farfaniadrugs.cigarette_2": "Cigarrillo",
   "item.farfaniadrugs.cigarette_3": "Cigarrillo",
 
+  "effect.farfaniadrugs.fentanyl_effect": "",
+  "effect.farfaniadrugs.cocaine_effect": "",
+  "effect.farfaniadrugs.cigarette_effect": "",
+  "effect.farfaniadrugs.black_widow_poison_effect": "",
+  "effect.farfaniadrugs.hallucinogenic_mushrooms_effect": "",
+  "effect.farfaniadrugs.marijuana_effect": "",
+  "effect.farfaniadrugs.methamphetamine_effect": "",
+
+  "tooltip.farfaniadrugs.methamphetamine": "AAAAAAAAAAAAAAAAAAAAAAA",
+
+  "argument.shader.unknown": "Unknown Shader",
+  "commands.shader.apply.success.single": "Shader apply success",
+  "commands.shader.apply.success.multiple": "Shader apply success",
+  "commands.shader.apply.failed": "Shader apply failed",
+
   "itemGroup.farfadrugs": "Farfania Drugs"
 }

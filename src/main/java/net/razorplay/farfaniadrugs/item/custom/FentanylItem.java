@@ -1,36 +1,63 @@
 package net.razorplay.farfaniadrugs.item.custom;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.razorplay.farfaniadrugs.FarfaniaDrugs;
+import net.razorplay.farfaniadrugs.effect.ModEffects;
+import net.razorplay.farfaniadrugs.item.ModItemGroup;
 import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class FentanylItem extends Item {
+    private List<EffectInstance> firstEffectsList = new ArrayList<>();
+    private int timer = 20;
+
     public FentanylItem(Properties properties) {
-        super(properties);
+        super(new Item.Properties()
+                .group(ModItemGroup.FARFADRUGS_GROUP)
+                .food(new Food.Builder()
+                        .hunger(1)
+                        .saturation(0.2f)
+                        .setAlwaysEdible()
+                        .build())
+        );
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+        firstEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * timer, 3));
+        firstEffectsList.add(new EffectInstance(ModEffects.FENTANYL_EFFECT.get(), 20 * timer));
+        if (entityLiving instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entityLiving;
+            firstEffectsList.forEach(player::addPotionEffect);
+        }
+        return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
+    public int getUseDuration(ItemStack stack) {
+        return 32;
+    }
 
-        List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 110, 3));
-        List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * 10, 3));
-
-        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "deconverge.json",
-                secondEffectsList, null, true, 110, playerIn);
-
-        stack.shrink(1);
-        return ActionResult.func_233538_a_(stack, worldIn.isRemote());
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.EAT;
     }
 }

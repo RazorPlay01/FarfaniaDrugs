@@ -1,5 +1,6 @@
 package net.razorplay.farfaniadrugs.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;

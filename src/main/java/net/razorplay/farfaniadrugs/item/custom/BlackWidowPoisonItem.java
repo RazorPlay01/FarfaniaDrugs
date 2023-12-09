@@ -1,37 +1,61 @@
 package net.razorplay.farfaniadrugs.item.custom;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.razorplay.farfaniadrugs.effect.ModEffects;
+import net.razorplay.farfaniadrugs.item.ModItemGroup;
 import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BlackWidowPoisonItem extends Item {
+    private List<EffectInstance> firstEffectsList = new ArrayList<>();
+    private int timer = 20;
 
-    public BlackWidowPoisonItem(Properties properties) {
-        super(properties);
+    public BlackWidowPoisonItem(Properties group) {
+        super(new Item.Properties()
+                .group(ModItemGroup.FARFADRUGS_GROUP)
+                .food(new Food.Builder()
+                        .hunger(1)
+                        .saturation(0.2f)
+                        .setAlwaysEdible()
+                        .build())
+        );
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.DRINK;
+    }
 
-        List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.JUMP_BOOST, 20 * 120, 0));
-        List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.POISON, 20 * 60, 0));
+    @Override
+    public int getUseDuration(ItemStack stack) {
+        return 32;  // Duración del efecto en ticks (32 ticks ≈ 1.6 segundos)
+    }
 
-        DefaultUtil.playerApplyDrugsEffect(firstEffectsList, "sobel.json",
-                secondEffectsList, null, true, 120, playerIn);
-
-        stack.shrink(1);
-        return ActionResult.func_233538_a_(stack, worldIn.isRemote());
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+        firstEffectsList.add(new EffectInstance(Effects.JUMP_BOOST, 20 * timer, 1));
+        firstEffectsList.add(new EffectInstance(ModEffects.BLACK_WIDOW_POISON_EFFECT.get(), 20 * timer));
+        if (entityLiving instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entityLiving;
+            firstEffectsList.forEach(player::addPotionEffect);
+        }
+        return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 }
+

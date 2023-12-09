@@ -1,142 +1,109 @@
 package net.razorplay.farfaniadrugs;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.razorplay.farfaniadrugs.block.ModBlocks;
+import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.stream.Collectors;
-
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(FarfaniaDrugs.MOD_ID)
-public class FarfaniaDrugs<jarName> {
-
-    public static boolean LoadShader = true;
-
+public class FarfaniaDrugs {
     public static String localJarName = "";
+    private static String currentShader = "";
 
     public static boolean isDefault = true;
+    public static boolean shaderActive = false;
 
     public static final String MOD_ID = "farfaniadrugs";
-    // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public FarfaniaDrugs() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
         // Register the setup method for modloading
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
-
-        modEventBus.addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        modEventBus.addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        modEventBus.addListener(this::processIMC);
-        // Register the doClientStuff method for modloading
-        modEventBus.addListener(this::doClientStuff);
+        ModEffects.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-    }
-
-    private void doClientStuff(final FMLClientSetupEvent event) {
-
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> {
-            LOGGER.info("Hello world from the MDK");
-            return "Hello world";
-        });
-    }
-
-    private void processIMC(final InterModProcessEvent event) {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m -> m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
-        // do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
     }
 
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
         if (isDefault) {
             Minecraft.getInstance().gameRenderer.stopUseShader();
-            //Minecraft.getInstance().gameRenderer.switchUseShader();
-            //Minecraft.func_71410_x().field_71460_t.func_181022_b();
         }
-
-        if (LoadShader & !isDefault) {
-            Minecraft.getInstance().gameRenderer.stopUseShader();
-            //Minecraft.func_71410_x().field_71460_t.func_175071_c();
-            Minecraft.getInstance().gameRenderer.loadShader(new ResourceLocation(localJarName));
-            //Minecraft.func_71410_x().field_71460_t.func_175069_a(new ResourceLocation(localJarName));
-            LoadShader = false;
-        }
-
     }
 
-    public static void loadShader(String jarName, boolean isDefaultIn) {
+    @SubscribeEvent
+    public void onCameraSetup(EntityViewRenderEvent.CameraSetup event) {
+        PlayerEntity player = Minecraft.getInstance().player;
+        if (player != null && event.getInfo().getRenderViewEntity() == player) {
+            if (Minecraft.getInstance().gameSettings.getPointOfView() == PointOfView.FIRST_PERSON) {
+                if (!shaderActive) {
+                    applyCustomShader(localJarName);
+                }
+            } else {
+                if (shaderActive) {
+                    removeCustomShader();
+                }
+            }
+        }
+    }
+
+    public static void applyCustomShader(String shaderName) {
+        if (!shaderActive || !currentShader.equals(shaderName)) {
+            try {
+                Minecraft.getInstance().gameRenderer.loadShader(new ResourceLocation(shaderName));
+            } catch (Exception ignored) {
+
+            }
+            shaderActive = true;
+            currentShader = shaderName;
+        }
+    }
+
+    public static void removeCustomShader() {
+        if (shaderActive) {
+            Minecraft.getInstance().gameRenderer.stopUseShader();
+            shaderActive = false;
+        }
+    }
+
+
+    public static void loadCustomShader(String jarName) {
+        localJarName = "farfaniadrugs:shaders/post/" + jarName;
+        Minecraft.getInstance().displayGuiScreen((Screen) null);
+        isDefault = false;
+        shaderActive = false;
+    }
+
+    public static void loadShader(String jarName) {
         localJarName = "minecraft:shaders/post/" + jarName;
         Minecraft.getInstance().displayGuiScreen((Screen) null);
-        //Minecraft.func_71410_x().func_147108_a((Screen)null);
-        isDefault = isDefaultIn;
-        LoadShader = true;
+        isDefault = true;
+        shaderActive = false;
+    }
+    @SubscribeEvent
+    public static void onPlayerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event){
+        if (!shaderActive) {
+            applyCustomShader(localJarName);
+        }
     }
 }

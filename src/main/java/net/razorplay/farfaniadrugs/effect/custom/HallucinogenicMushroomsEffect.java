@@ -7,16 +7,16 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HallucinogenicMushroomsEffect extends Effect {
-    private String customShader = "wobble.json";
+    private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/wobble.json");
     private boolean effectApplied = false;
     private int timer;
-
     public HallucinogenicMushroomsEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -25,7 +25,7 @@ public class HallucinogenicMushroomsEffect extends Effect {
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
             if (!effectApplied) {
-                FarfaniaDrugs.loadCustomShader(customShader);
+                FarfaniaDrugs.loadCustomShader(shader);
                 effectApplied = true;
             }
         }
@@ -33,7 +33,7 @@ public class HallucinogenicMushroomsEffect extends Effect {
 
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
-        FarfaniaDrugs.loadShader("");
+        FarfaniaDrugs.loadDefaultShader();
         List<EffectInstance> secondEffectsList = new ArrayList<>();
         secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;

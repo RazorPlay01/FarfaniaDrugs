@@ -27,7 +27,6 @@ public class CocaineItem extends Item {
 
     public CocaineItem(Properties properties) {
         super(properties);
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override

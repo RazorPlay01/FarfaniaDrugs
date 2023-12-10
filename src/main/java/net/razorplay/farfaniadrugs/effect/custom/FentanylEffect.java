@@ -17,9 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FentanylEffect extends Effect {
-    private String customShader = "deconverge.json";
+    private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/deconverge.json");
     private boolean effectApplied = false;
-
     public FentanylEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -28,7 +27,7 @@ public class FentanylEffect extends Effect {
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
             if (!effectApplied) {
-                FarfaniaDrugs.loadCustomShader(customShader);
+                FarfaniaDrugs.loadCustomShader(shader);
                 effectApplied = true;
             }
         }
@@ -36,7 +35,7 @@ public class FentanylEffect extends Effect {
 
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
-        FarfaniaDrugs.loadShader("");
+        FarfaniaDrugs.loadDefaultShader();
         effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }

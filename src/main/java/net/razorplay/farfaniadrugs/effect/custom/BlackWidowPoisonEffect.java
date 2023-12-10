@@ -9,16 +9,16 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlackWidowPoisonEffect extends Effect {
-    private String customShader = "sobel.json";
+    private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/sobel.json");
     private boolean effectApplied = false;
     private int timer;
-
     public BlackWidowPoisonEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -27,11 +27,7 @@ public class BlackWidowPoisonEffect extends Effect {
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
             if (!effectApplied) {
-
-                PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-                player.getPersistentData().putString("playerShader", customShader);
-
-                FarfaniaDrugs.loadCustomShader(customShader);
+                FarfaniaDrugs.loadCustomShader(shader);
                 effectApplied = true;
             }
         }
@@ -39,10 +35,8 @@ public class BlackWidowPoisonEffect extends Effect {
 
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
-        FarfaniaDrugs.loadShader("");
-
+        FarfaniaDrugs.loadDefaultShader();
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-
         List<EffectInstance> secondEffectsList = new ArrayList<>();
         secondEffectsList.add(new EffectInstance(Effects.POISON, timer * 2, 0));
         secondEffectsList.forEach(player::addPotionEffect);

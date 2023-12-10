@@ -33,7 +33,6 @@ public class BlackWidowPoisonItem extends Item {
                         .setAlwaysEdible()
                         .build())
         );
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override

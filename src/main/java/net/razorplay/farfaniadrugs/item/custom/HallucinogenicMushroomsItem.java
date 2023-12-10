@@ -41,8 +41,6 @@ public class HallucinogenicMushroomsItem extends Item {
                         .setAlwaysEdible()
                         .build())
         );
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override

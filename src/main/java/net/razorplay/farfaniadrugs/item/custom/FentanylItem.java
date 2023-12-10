@@ -15,7 +15,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItemGroup;
-import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import java.util.ArrayList;
 import java.util.List;

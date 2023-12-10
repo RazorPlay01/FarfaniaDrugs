@@ -12,7 +12,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
-import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

@@ -9,7 +9,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItems;
-import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 
 public class CigaretteItem extends Item {

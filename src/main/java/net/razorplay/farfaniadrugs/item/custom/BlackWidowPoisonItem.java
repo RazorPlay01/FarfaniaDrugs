@@ -17,7 +17,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItemGroup;
-import net.razorplay.farfaniadrugs.util.DefaultUtil;
 
 import java.util.*;
 

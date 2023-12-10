@@ -1,8 +1,10 @@
 package net.razorplay.farfaniadrugs.effect.custom;
 
+import net.minecraft.command.arguments.NBTCompoundTagArgument;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
@@ -25,6 +27,10 @@ public class BlackWidowPoisonEffect extends Effect {
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
             if (!effectApplied) {
+
+                PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
+                player.getPersistentData().putString("playerShader", customShader);
+
                 FarfaniaDrugs.loadCustomShader(customShader);
                 effectApplied = true;
             }
@@ -34,9 +40,11 @@ public class BlackWidowPoisonEffect extends Effect {
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         FarfaniaDrugs.loadShader("");
+
+        PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
+
         List<EffectInstance> secondEffectsList = new ArrayList<>();
         secondEffectsList.add(new EffectInstance(Effects.POISON, timer * 2, 0));
-        PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         secondEffectsList.forEach(player::addPotionEffect);
         effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);

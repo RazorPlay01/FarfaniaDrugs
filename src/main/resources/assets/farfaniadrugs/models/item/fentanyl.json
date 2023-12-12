@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "farfaniadrugs:item/fentanilo"
+    "layer0": "farfaniadrugs:item/fentanyl"
   }
 }

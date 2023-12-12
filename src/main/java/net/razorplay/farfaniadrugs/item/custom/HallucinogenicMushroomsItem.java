@@ -1,35 +1,19 @@
 package net.razorplay.farfaniadrugs.item.custom;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItemGroup;
 
-import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HallucinogenicMushroomsItem extends Item {
-    private List<EffectInstance> firstEffectsList = new ArrayList<>();
-    private List<EffectInstance> secondEffectsList = new ArrayList<>();
-
     private int timer = 20;
 
     public HallucinogenicMushroomsItem(Properties properties) {
@@ -43,15 +27,12 @@ public class HallucinogenicMushroomsItem extends Item {
         );
     }
 
+
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        firstEffectsList.add(new EffectInstance(Effects.LUCK, 20 * timer, 1));
-        firstEffectsList.add(new EffectInstance(Effects.SPEED, 20 * timer, 0));
-        firstEffectsList.add(new EffectInstance(ModEffects.HALLUCINOGENIC_MUSHROOMS_EFFECT.get(), 20 * timer, 0));
-        if (entityLiving instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entityLiving;
-            firstEffectsList.forEach(player::addPotionEffect);
-        }
+        entityLiving.addPotionEffect(new EffectInstance(Effects.LUCK, 20 * timer, 1));
+        entityLiving.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * timer, 0));
+        entityLiving.addPotionEffect(new EffectInstance(ModEffects.HALLUCINOGENIC_MUSHROOMS_EFFECT.get(), 20 * timer, 0));
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 

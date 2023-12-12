@@ -22,7 +22,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class CocaineItem extends Item {
-    private List<EffectInstance> firstEffectsList = new ArrayList<>();
     private int timer = 20;
 
     public CocaineItem(Properties properties) {
@@ -31,12 +30,10 @@ public class CocaineItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity player, Hand handIn) {
-        firstEffectsList.add(new EffectInstance(Effects.SPEED, 20 * timer, 1));
-        firstEffectsList.add(new EffectInstance(Effects.HASTE, 20 * timer, 1));
-        firstEffectsList.add(new EffectInstance(ModEffects.COCAINE_EFFECT.get(), 20 * timer));
+        player.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * timer, 1));
+        player.addPotionEffect(new EffectInstance(Effects.HASTE, 20 * timer, 1));
+        player.addPotionEffect(new EffectInstance(ModEffects.COCAINE_EFFECT.get(), 20 * timer));
         ItemStack stack = player.getHeldItem(handIn);
-
-        firstEffectsList.forEach(player::addPotionEffect);
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

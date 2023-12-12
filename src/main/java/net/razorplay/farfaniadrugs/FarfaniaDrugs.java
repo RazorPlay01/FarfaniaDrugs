@@ -2,6 +2,8 @@ package net.razorplay.farfaniadrugs;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -10,10 +12,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.razorplay.farfaniadrugs.block.ModBlocks;
@@ -35,7 +40,6 @@ public class FarfaniaDrugs {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public FarfaniaDrugs() {
-        MinecraftForge.EVENT_BUS.register(this);
         // Register the setup method for modloading
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -43,16 +47,27 @@ public class FarfaniaDrugs {
         ModBlocks.register(modEventBus);
         ModEffects.register(modEventBus);
 
+        modEventBus.addListener(this::doClientStuff);
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            RenderTypeLookup.setRenderLayer(ModBlocks.TOBACCO_CROP.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.COCAINE_CROP.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.HALLUCINOGENIC_MUSHROOMS_CROP.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.MARIJUANA_CROP.get(), RenderType.getCutout());
+        });
     }
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
-            if (isDefault) {
-                Minecraft.getInstance().gameRenderer.stopUseShader();
-            }
+        if (isDefault) {
+            Minecraft.getInstance().gameRenderer.stopUseShader();
+        }
     }
 
 
@@ -108,5 +123,38 @@ public class FarfaniaDrugs {
         Minecraft.getInstance().displayGuiScreen((Screen) null);
         isDefault = false;
         shaderActive = false;
+    }
+
+    @SubscribeEvent
+    public static void onPlayerDeath(LivingDeathEvent event) {
+        if (event.getEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntity();
+            if (player != null) {
+                FarfaniaDrugs.loadCustomShader(FarfaniaDrugs.currentShader);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerDeath(PlayerEvent.PlayerRespawnEvent event) {
+        PlayerEntity player = event.getPlayer();
+        if (player != null) {
+            FarfaniaDrugs.loadCustomShader(FarfaniaDrugs.currentShader);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerCloneEvent(PlayerEvent.Clone event) {
+        if (event.getPlayer() != null && event.getPlayer() instanceof PlayerEntity) {
+            if (event.isWasDeath()) {
+                loadDefaultShader();
+            } else {
+                if (shaderActive) {
+                    loadCustomShader(currentShader);
+                } else {
+                    loadDefaultShader();
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "farfaniadrugs:item/viuda_negra"
+    "layer0": "farfaniadrugs:item/black_widow_poison"
   }
 }

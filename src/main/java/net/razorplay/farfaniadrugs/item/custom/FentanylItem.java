@@ -12,6 +12,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItemGroup;
@@ -23,7 +25,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FentanylItem extends Item {
-    private List<EffectInstance> firstEffectsList = new ArrayList<>();
     private int timer = 20;
 
     public FentanylItem(Properties properties) {
@@ -40,12 +41,8 @@ public class FentanylItem extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        firstEffectsList.add(new EffectInstance(Effects.SLOWNESS, 20 * timer, 3));
-        firstEffectsList.add(new EffectInstance(ModEffects.FENTANYL_EFFECT.get(), 20 * timer));
-        if (entityLiving instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entityLiving;
-            firstEffectsList.forEach(player::addPotionEffect);
-        }
+        entityLiving.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20 * timer, 3));
+        entityLiving.addPotionEffect(new EffectInstance(ModEffects.FENTANYL_EFFECT.get(), 20 * timer));
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 

@@ -17,6 +17,7 @@ public class MarijuanaEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/phosphor.json");
     private boolean effectApplied = false;
     private int timer;
+
     public MarijuanaEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -34,11 +35,9 @@ public class MarijuanaEffect extends Effect {
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         FarfaniaDrugs.loadDefaultShader();
-        List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
-        secondEffectsList.add(new EffectInstance(Effects.HUNGER, 2 * timer, 0));
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-        secondEffectsList.forEach(player::addPotionEffect);
+        player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
+        player.addPotionEffect(new EffectInstance(Effects.HUNGER, 2 * timer, 0));
         effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }

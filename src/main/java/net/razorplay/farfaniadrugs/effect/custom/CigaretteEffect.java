@@ -15,9 +15,7 @@ import java.util.List;
 
 public class CigaretteEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/bumpy.json");
-
     private boolean effectApplied = false;
-
     public CigaretteEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }

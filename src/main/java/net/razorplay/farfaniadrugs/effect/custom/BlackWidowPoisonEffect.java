@@ -37,9 +37,7 @@ public class BlackWidowPoisonEffect extends Effect {
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         FarfaniaDrugs.loadDefaultShader();
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-        List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.POISON, timer * 2, 0));
-        secondEffectsList.forEach(player::addPotionEffect);
+        player.addPotionEffect(new EffectInstance(Effects.POISON, timer * 2, 0));
         effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }

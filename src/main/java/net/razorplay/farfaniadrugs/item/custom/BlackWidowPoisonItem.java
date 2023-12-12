@@ -21,7 +21,6 @@ import net.razorplay.farfaniadrugs.item.ModItemGroup;
 import java.util.*;
 
 public class BlackWidowPoisonItem extends Item {
-    private List<EffectInstance> firstEffectsList = new ArrayList<>();
     private int timer = 20;
 
     public BlackWidowPoisonItem(Properties group) {
@@ -47,12 +46,8 @@ public class BlackWidowPoisonItem extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        firstEffectsList.add(new EffectInstance(Effects.JUMP_BOOST, 20 * timer, 1));
-        firstEffectsList.add(new EffectInstance(ModEffects.BLACK_WIDOW_POISON_EFFECT.get(), 20 * timer));
-        if (entityLiving instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entityLiving;
-            firstEffectsList.forEach(player::addPotionEffect);
-        }
+        entityLiving.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 20 * timer, 1));
+        entityLiving.addPotionEffect(new EffectInstance(ModEffects.BLACK_WIDOW_POISON_EFFECT.get(), 20 * timer));
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 }

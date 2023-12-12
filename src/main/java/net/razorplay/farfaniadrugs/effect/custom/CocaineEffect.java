@@ -17,7 +17,6 @@ public class CocaineEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/art.json");
     private boolean effectApplied = false;
     private int timer;
-
     public CocaineEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -35,11 +34,9 @@ public class CocaineEffect extends Effect {
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         FarfaniaDrugs.loadDefaultShader();
-        List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.SLOWNESS, timer * 2, 0));
-        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, timer * 2, 0));
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-        secondEffectsList.forEach(player::addPotionEffect);
+        player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, timer * 2, 0));
+        player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, timer * 2, 0));
         effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }

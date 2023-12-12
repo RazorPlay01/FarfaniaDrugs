@@ -17,6 +17,7 @@ public class MethamphetamineEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/blur.json");
     private boolean effectApplied = false;
     private int timer;
+
     public MethamphetamineEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -34,10 +35,8 @@ public class MethamphetamineEffect extends Effect {
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         FarfaniaDrugs.loadDefaultShader();
-        List<EffectInstance> secondEffectsList = new ArrayList<>();
-        secondEffectsList.add(new EffectInstance(Effects.MINING_FATIGUE, 2 * timer, 1));
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-        secondEffectsList.forEach(player::addPotionEffect);
+        player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 2 * timer, 1));
         effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }

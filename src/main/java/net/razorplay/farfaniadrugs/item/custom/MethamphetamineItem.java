@@ -27,13 +27,9 @@ public class MethamphetamineItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity player, Hand handIn) {
         ItemStack stack = player.getHeldItem(handIn);
-
-        List<EffectInstance> firstEffectsList = new ArrayList<>();
-        firstEffectsList.add(new EffectInstance(Effects.STRENGTH, 20 * timer));
-        firstEffectsList.add(new EffectInstance(Effects.RESISTANCE, 20 * timer));
-        firstEffectsList.add(new EffectInstance(ModEffects.METHAMPHETAMINE_EFFECT.get(), 20 * timer));
-        firstEffectsList.forEach(player::addPotionEffect);
-
+        player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 20 * timer));
+        player.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 20 * timer));
+        player.addPotionEffect(new EffectInstance(ModEffects.METHAMPHETAMINE_EFFECT.get(), 20 * timer));
 
         stack.shrink(1);
         return ActionResult.func_233538_a_(stack, worldIn.isRemote());

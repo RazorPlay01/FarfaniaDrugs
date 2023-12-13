@@ -2,6 +2,7 @@ package net.razorplay.farfaniadrugs.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
@@ -17,7 +18,11 @@ public class PlayerJoinHandler {
     public static void onPlayerLogin(ClientPlayerNetworkEvent.LoggedInEvent event) {
         ClientPlayerEntity player = Minecraft.getInstance().player;
         if (player != null) {
-            FarfaniaDrugs.loadCustomShader(FarfaniaDrugs.currentShader);
+            if (FarfaniaDrugs.currentShader == null){
+                FarfaniaDrugs.loadDefaultShader();
+            }else {
+                FarfaniaDrugs.loadCustomShader(FarfaniaDrugs.currentShader);
+            }
         }
     }
 }

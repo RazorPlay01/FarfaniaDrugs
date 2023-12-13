@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MethamphetamineEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/blur.json");
-    private boolean effectApplied = false;
+    private static boolean effectApplied = false;
     private int timer;
 
     public MethamphetamineEffect(EffectType typeIn, int liquidColorIn) {
@@ -25,9 +25,11 @@ public class MethamphetamineEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
+            effectApplied = entityLivingBaseIn.getPersistentData().getBoolean("effectApplied");
             if (!effectApplied) {
                 FarfaniaDrugs.loadCustomShader(shader);
-                effectApplied = true;
+                entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", true);
+                //effectApplied = true;
             }
         }
     }
@@ -37,7 +39,8 @@ public class MethamphetamineEffect extends Effect {
         FarfaniaDrugs.loadDefaultShader();
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 2 * timer, 1));
-        effectApplied = false;
+        entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", false);
+        //effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
@@ -47,5 +50,9 @@ public class MethamphetamineEffect extends Effect {
             timer = duration;
         }
         return true;
+    }
+    public static void resetEffectApplied(PlayerEntity player) {
+        player.getPersistentData().putBoolean("effectApplied", false);
+        //effectApplied = false;
     }
 }

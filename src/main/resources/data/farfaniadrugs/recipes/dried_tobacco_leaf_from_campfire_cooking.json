@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "farfaniadrugs:tobacco_leaf"
+  },
+  "result": "farfaniadrugs:dried_tobacco_leaf",
+  "experience": 0.15,
+  "cookingtime": 500
+}

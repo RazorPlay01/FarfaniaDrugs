@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CigaretteEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/bumpy.json");
-    private boolean effectApplied = false;
+    private static boolean effectApplied = false;
     public CigaretteEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -23,9 +23,11 @@ public class CigaretteEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
+            effectApplied = entityLivingBaseIn.getPersistentData().getBoolean("effectApplied");
             if (!effectApplied) {
                 FarfaniaDrugs.loadCustomShader(shader);
-                effectApplied = true;
+                entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", true);
+                //effectApplied = true;
             }
         }
     }
@@ -33,12 +35,17 @@ public class CigaretteEffect extends Effect {
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         FarfaniaDrugs.loadDefaultShader();
-        effectApplied = false;
+        entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", false);
+        //effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
     @Override
     public boolean isReady(int duration, int amplifier) {
         return true;
+    }
+    public static void resetEffectApplied(PlayerEntity player) {
+        player.getPersistentData().putBoolean("effectApplied", false);
+        effectApplied = false;
     }
 }

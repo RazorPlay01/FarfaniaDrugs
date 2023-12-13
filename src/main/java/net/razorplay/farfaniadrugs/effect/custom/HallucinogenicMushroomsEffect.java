@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HallucinogenicMushroomsEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/wobble.json");
-    private boolean effectApplied = false;
+    private static boolean effectApplied = false;
     private int timer;
     public HallucinogenicMushroomsEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
@@ -24,9 +24,11 @@ public class HallucinogenicMushroomsEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
+            effectApplied = entityLivingBaseIn.getPersistentData().getBoolean("effectApplied");
             if (!effectApplied) {
                 FarfaniaDrugs.loadCustomShader(shader);
-                effectApplied = true;
+                entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", true);
+                //effectApplied = true;
             }
         }
     }
@@ -36,7 +38,8 @@ public class HallucinogenicMushroomsEffect extends Effect {
         FarfaniaDrugs.loadDefaultShader();
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
-        effectApplied = false;
+        entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", false);
+        //effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
@@ -46,5 +49,9 @@ public class HallucinogenicMushroomsEffect extends Effect {
             timer = duration;
         }
         return true;
+    }
+    public static void resetEffectApplied(PlayerEntity player) {
+        player.getPersistentData().putBoolean("effectApplied", false);
+        effectApplied = false;
     }
 }

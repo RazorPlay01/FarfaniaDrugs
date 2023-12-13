@@ -1,29 +1,36 @@
 {
-  "item.farfaniadrugs.black_widow_poison": "Viuda Negra",
-  "item.farfaniadrugs.cocaine": "Cocaina",
-  "item.farfaniadrugs.marijuana": "Marihuana",
-  "item.farfaniadrugs.methamphetamine": "Metanfetamina",
-  "item.farfaniadrugs.fentanyl": "Fentanilo",
-  "item.farfaniadrugs.hallucinogenic_mushrooms": "Hongos Alucinogenos",
-  "item.farfaniadrugs.cigarette": "Cigarrillo",
-  "item.farfaniadrugs.cigarette_1": "Cigarrillo",
-  "item.farfaniadrugs.cigarette_2": "Cigarrillo",
-  "item.farfaniadrugs.cigarette_3": "Cigarrillo",
+  "block.farfaniadrugs.marijuana_crop": "Marijuana Seed",
+  "item.farfaniadrugs.marijuana": "Marijuana",
 
-  "effect.farfaniadrugs.fentanyl_effect": "",
-  "effect.farfaniadrugs.cocaine_effect": "",
-  "effect.farfaniadrugs.cigarette_effect": "",
-  "effect.farfaniadrugs.black_widow_poison_effect": "",
-  "effect.farfaniadrugs.hallucinogenic_mushrooms_effect": "",
-  "effect.farfaniadrugs.marijuana_effect": "",
-  "effect.farfaniadrugs.methamphetamine_effect": "",
+  "block.farfaniadrugs.cocaine_crop": "Cocaine Seed",
+  "item.farfaniadrugs.cocaine_leaf": "Cocaine Leaf",
+  "item.farfaniadrugs.cocaine": "Cocaine",
 
-  "tooltip.farfaniadrugs.methamphetamine": "AAAAAAAAAAAAAAAAAAAAAAA",
+  "block.farfaniadrugs.hallucinogenic_mushrooms_crop": "Hallucinogenic Mushrooms",
+  "item.farfaniadrugs.cooked_hallucinogenic_mushrooms": "Cooked Hallucinogenic Mushrooms",
 
-  "argument.shader.unknown": "Unknown Shader",
-  "commands.shader.apply.success.single": "Shader apply success",
-  "commands.shader.apply.success.multiple": "Shader apply success",
-  "commands.shader.apply.failed": "Shader apply failed",
+  "block.farfaniadrugs.tobacco_crop": "Tobacco Seed",
+  "item.farfaniadrugs.tobacco_leaf": "Tobacco Leaf",
+  "item.farfaniadrugs.dried_tobacco_leaf": "Dried Tobacco Leaf",
+  "item.farfaniadrugs.cigarette": "Cigarette",
+  "item.farfaniadrugs.cigarette_1": "Cigarette",
+  "item.farfaniadrugs.cigarette_2": "Cigarette",
+  "item.farfaniadrugs.cigarette_3": "Cigarette",
+
+  "item.farfaniadrugs.methamphetamine": "Methamphetamine",
+
+  "item.farfaniadrugs.black_widow_poison": "Black Widow Poison",
+
+  "item.farfaniadrugs.fentanyl": "Fentanyl",
+
+
+  "effect.farfaniadrugs.fentanyl_effect": "Fentanyl",
+  "effect.farfaniadrugs.cocaine_effect": "Cocaine",
+  "effect.farfaniadrugs.cigarette_effect": "Cigarette",
+  "effect.farfaniadrugs.black_widow_poison_effect": "Black Widow Poison",
+  "effect.farfaniadrugs.hallucinogenic_mushrooms_effect": "Hallucinogenic Mushrooms",
+  "effect.farfaniadrugs.marijuana_effect": "Marijuana",
+  "effect.farfaniadrugs.methamphetamine_effect": "Methamphetamine",
 
   "itemGroup.farfadrugs": "Farfania Drugs"
 }

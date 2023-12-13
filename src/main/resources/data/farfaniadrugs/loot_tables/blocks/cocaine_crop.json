@@ -12,17 +12,17 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "farfaniadrugs:tobacco_crop",
+                  "block": "farfaniadrugs:cocaine_crop",
                   "properties": {
                     "age": "7"
                   }
                 }
               ],
-              "name": "farfaniadrugs:tobacco_leaf"
+              "name": "farfaniadrugs:cocaine_leaf"
             },
             {
               "type": "minecraft:item",
-              "name": "farfaniadrugs:tobacco_seed"
+              "name": "farfaniadrugs:cocaine_seed"
             }
           ]
         }
@@ -44,13 +44,13 @@
               }
             }
           ],
-          "name": "farfaniadrugs:tobacco_seed"
+          "name": "farfaniadrugs:cocaine_seed"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "farfaniadrugs:tobacco_crop",
+          "block": "farfaniadrugs:cocaine_crop",
           "properties": {
             "age": "7"
           }
@@ -73,13 +73,13 @@
               }
             }
           ],
-          "name": "farfaniadrugs:tobacco_leaf"
+          "name": "farfaniadrugs:cocaine_leaf"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "farfaniadrugs:tobacco_crop",
+          "block": "farfaniadrugs:cocaine_crop",
           "properties": {
             "age": "7"
           }

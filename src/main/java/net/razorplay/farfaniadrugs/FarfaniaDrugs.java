@@ -124,37 +124,4 @@ public class FarfaniaDrugs {
         isDefault = false;
         shaderActive = false;
     }
-
-    @SubscribeEvent
-    public static void onPlayerDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
-            if (player != null) {
-                FarfaniaDrugs.loadCustomShader(FarfaniaDrugs.currentShader);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerDeath(PlayerEvent.PlayerRespawnEvent event) {
-        PlayerEntity player = event.getPlayer();
-        if (player != null) {
-            FarfaniaDrugs.loadCustomShader(FarfaniaDrugs.currentShader);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerCloneEvent(PlayerEvent.Clone event) {
-        if (event.getPlayer() != null && event.getPlayer() instanceof PlayerEntity) {
-            if (event.isWasDeath()) {
-                loadDefaultShader();
-            } else {
-                if (shaderActive) {
-                    loadCustomShader(currentShader);
-                } else {
-                    loadDefaultShader();
-                }
-            }
-        }
-    }
 }

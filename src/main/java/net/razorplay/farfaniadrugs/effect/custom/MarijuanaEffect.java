@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MarijuanaEffect extends Effect {
     private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/phosphor.json");
-    private boolean effectApplied = false;
+    private static boolean effectApplied = false;
     private int timer;
 
     public MarijuanaEffect(EffectType typeIn, int liquidColorIn) {
@@ -25,9 +25,11 @@ public class MarijuanaEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
+            effectApplied = entityLivingBaseIn.getPersistentData().getBoolean("effectApplied");
             if (!effectApplied) {
                 FarfaniaDrugs.loadCustomShader(shader);
-                effectApplied = true;
+                entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", true);
+                //effectApplied = true;
             }
         }
     }
@@ -38,7 +40,8 @@ public class MarijuanaEffect extends Effect {
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
         player.addPotionEffect(new EffectInstance(Effects.HUNGER, 2 * timer, 0));
-        effectApplied = false;
+        entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", false);
+        //effectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
@@ -48,5 +51,9 @@ public class MarijuanaEffect extends Effect {
             timer = duration;
         }
         return true;
+    }
+    public static void resetEffectApplied(PlayerEntity player) {
+        player.getPersistentData().putBoolean("effectApplied", false);
+        effectApplied = false;
     }
 }

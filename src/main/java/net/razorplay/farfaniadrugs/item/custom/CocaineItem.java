@@ -8,11 +8,13 @@ import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
+import net.razorplay.farfaniadrugs.util.PlayerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +32,18 @@ public class CocaineItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity player, Hand handIn) {
-        player.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * timer, 1));
-        player.addPotionEffect(new EffectInstance(Effects.HASTE, 20 * timer, 1));
-        player.addPotionEffect(new EffectInstance(ModEffects.COCAINE_EFFECT.get(), 20 * timer));
-        ItemStack stack = player.getHeldItem(handIn);
+        if (PlayerUtil.canPlayerConsumeItem(player, PlayerUtil.ModEffect.COCAINE_EFFECT)) {
+            player.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * timer, 1));
+            player.addPotionEffect(new EffectInstance(Effects.HASTE, 20 * timer, 1));
+            player.addPotionEffect(new EffectInstance(ModEffects.COCAINE_EFFECT.get(), 20 * timer));
+            ItemStack stack = player.getHeldItem(handIn);
 
-        stack.shrink(1);
-        return ActionResult.func_233538_a_(stack, worldIn.isRemote());
+            stack.shrink(1);
+            //return ActionResult.func_233538_a_(stack, worldIn.isRemote());
+            return super.onItemRightClick(worldIn, player, handIn);
+        } else {
+            return new ActionResult<>(ActionResultType.FAIL, player.getHeldItem(handIn));
+        }
     }
 
 }

@@ -6,9 +6,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItemGroup;
+import net.razorplay.farfaniadrugs.util.PlayerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,14 @@ public class HallucinogenicMushroomsItem extends Item {
         );
     }
 
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if (PlayerUtil.canPlayerConsumeItem(playerIn, PlayerUtil.ModEffect.HALLUCINOGENIC_MUSHROOMS_EFFECT)) {
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+        } else {
+            return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
+        }
+    }
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {

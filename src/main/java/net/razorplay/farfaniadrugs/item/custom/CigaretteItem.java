@@ -5,10 +5,12 @@ import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItems;
+import net.razorplay.farfaniadrugs.util.PlayerUtil;
 
 
 public class CigaretteItem extends Item {
@@ -21,35 +23,39 @@ public class CigaretteItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
+        // Verificar si el jugador puede consumir el ítem basándose en el estado del efecto de poción
+        if (PlayerUtil.canPlayerConsumeItem(playerIn, PlayerUtil.ModEffect.CIGARETTE_EFFECT)) {
+            if (stack.getItem() == ModItems.CIGARETTE.get()) {
+                stack.shrink(1);
+                ItemStack newstack = new ItemStack(ModItems.CIGARETTE_1.get(), 1);
+                if (!playerIn.inventory.addItemStackToInventory(newstack)) {
+                    playerIn.dropItem(newstack, false);
+                }
+            } else if (stack.getItem() == ModItems.CIGARETTE_1.get()) {
+                stack.shrink(1);
+                ItemStack newstack = new ItemStack(ModItems.CIGARETTE_2.get(), 1);
+                if (!playerIn.inventory.addItemStackToInventory(newstack)) {
+                    playerIn.dropItem(newstack, false);
+                }
+            } else if (stack.getItem() == ModItems.CIGARETTE_2.get()) {
+                stack.shrink(1);
+                ItemStack newstack = new ItemStack(ModItems.CIGARETTE_3.get(), 1);
+                if (!playerIn.inventory.addItemStackToInventory(newstack)) {
+                    playerIn.dropItem(newstack, false);
+                }
+            } else if (stack.getItem() == ModItems.CIGARETTE_3.get()) {
+                stack.shrink(1);
+            }
 
-        if (stack.getItem() == ModItems.CIGARETTE.get()) {
-            stack.shrink(1);
-            ItemStack newstack = new ItemStack(ModItems.CIGARETTE_1.get(), 1);
-            if (!playerIn.inventory.addItemStackToInventory(newstack)) {
-                playerIn.dropItem(newstack, false);
-            }
-        } else if (stack.getItem() == ModItems.CIGARETTE_1.get()) {
-            stack.shrink(1);
-            ItemStack newstack = new ItemStack(ModItems.CIGARETTE_2.get(), 1);
-            if (!playerIn.inventory.addItemStackToInventory(newstack)) {
-                playerIn.dropItem(newstack, false);
-            }
-        } else if (stack.getItem() == ModItems.CIGARETTE_2.get()) {
-            stack.shrink(1);
-            ItemStack newstack = new ItemStack(ModItems.CIGARETTE_3.get(), 1);
-            if (!playerIn.inventory.addItemStackToInventory(newstack)) {
-                playerIn.dropItem(newstack, false);
-            }
-        } else if (stack.getItem() == ModItems.CIGARETTE_3.get()) {
-            stack.shrink(1);
+
+            playerIn.addPotionEffect(new EffectInstance(ModEffects.CIGARETTE_EFFECT.get(), 20 * timer));
+
+            spawnCigarretePaticles(playerIn);
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+        } else {
+            // El jugador no puede consumir el ítem debido al efecto de poción activo
+            return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         }
-
-
-        playerIn.addPotionEffect(new EffectInstance(ModEffects.CIGARETTE_EFFECT.get(), 20 * timer));
-
-        spawnCigarretePaticles(playerIn);
-
-        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     private static void spawnCigarretePaticles(PlayerEntity playerIn) {

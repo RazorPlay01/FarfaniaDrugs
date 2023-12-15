@@ -6,6 +6,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,11 +26,18 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.razorplay.farfaniadrugs.block.ModBlocks;
+import net.razorplay.farfaniadrugs.commands.ModMessages;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItems;
+import net.razorplay.farfaniadrugs.util.PlayerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(FarfaniaDrugs.MOD_ID)
@@ -33,9 +45,9 @@ public class FarfaniaDrugs {
     public static final ResourceLocation DEFAULT_SHADER = new ResourceLocation("minecraft:shaders/post/blit.json");
     public static ResourceLocation customShader;
     public static ResourceLocation currentShader;
-    public static boolean isDefault = true;
+    //public static boolean isDefault = true;
     public static boolean shaderActive = false;
-
+    boolean isModEffectActive = false;
     public static final String MOD_ID = "farfaniadrugs";
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -46,6 +58,7 @@ public class FarfaniaDrugs {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModMessages.register();
 
         modEventBus.addListener(this::doClientStuff);
 
@@ -65,63 +78,39 @@ public class FarfaniaDrugs {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
-        if (isDefault) {
-            Minecraft.getInstance().gameRenderer.stopUseShader();
+        PlayerEntity player = Minecraft.getInstance().player;
+        List<Effect> potionEffects = Arrays.asList(ModEffects.FENTANYL_EFFECT.get(), ModEffects.BLACK_WIDOW_POISON_EFFECT.get(),
+                ModEffects.COCAINE_EFFECT.get(), ModEffects.MARIJUANA_EFFECT.get(), ModEffects.METHAMPHETAMINE_EFFECT.get(),
+                ModEffects.HALLUCINOGENIC_MUSHROOMS_EFFECT.get(), ModEffects.CIGARETTE_EFFECT.get());
+        isModEffectActive = PlayerUtil.hasPotionEffect(player, potionEffects);
+        if (player != null) {
+            CompoundNBT playerData = player.getPersistentData();
+            if (!isModEffectActive) {
+                Minecraft.getInstance().gameRenderer.stopUseShader();
+                playerData.putBoolean("shaderActive", false);
+            } else {
+                if (!playerData.getBoolean("shaderActive") && !playerData.getString("currentShader").equals(playerData.getString("customShader"))) {
+                    Minecraft.getInstance().gameRenderer.loadShader(new ResourceLocation(playerData.getString("customShader")));
+                    playerData.putBoolean("shaderActive", true);
+                }
+            }
         }
     }
-
-
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onCameraSetup(EntityViewRenderEvent.CameraSetup event) {
         PlayerEntity player = Minecraft.getInstance().player;
         if (player != null && event.getInfo().getRenderViewEntity() == player) {
-            if (Minecraft.getInstance().gameSettings.getPointOfView() == PointOfView.FIRST_PERSON) {
-                if (!shaderActive) {
-                    applyShader(customShader);
+            CompoundNBT playerData = player.getPersistentData();
+            if (!(Minecraft.getInstance().gameSettings.getPointOfView() == PointOfView.FIRST_PERSON)) {
+                if (playerData.getBoolean("shaderActive")) {
+                    Minecraft.getInstance().gameRenderer.stopUseShader();
+                    playerData.putBoolean("shaderActive", false);
                 }
-            } else {
-                if (shaderActive) {
-                    removeShader();
-                }
-                if (!isDefault) {
+                if (isModEffectActive) {
                     Minecraft.getInstance().gameSettings.setPointOfView(PointOfView.FIRST_PERSON);
                 }
             }
         }
-    }
-
-    public static void applyShader(ResourceLocation shader) {
-        if (!shaderActive || !currentShader.equals(shader)) {
-            if (shader == null) {
-                Minecraft.getInstance().gameRenderer.loadShader(DEFAULT_SHADER);
-            } else {
-                Minecraft.getInstance().gameRenderer.loadShader(shader);
-            }
-
-            shaderActive = true;
-            currentShader = shader;
-        }
-    }
-
-    public static void removeShader() {
-        if (shaderActive) {
-            Minecraft.getInstance().gameRenderer.stopUseShader();
-            shaderActive = false;
-        }
-    }
-
-    public static void loadDefaultShader() {
-        customShader = DEFAULT_SHADER;
-        Minecraft.getInstance().displayGuiScreen((Screen) null);
-        isDefault = true;
-        shaderActive = false;
-    }
-
-    public static void loadCustomShader(ResourceLocation shader) {
-        customShader = shader;
-        Minecraft.getInstance().displayGuiScreen((Screen) null);
-        isDefault = false;
-        shaderActive = false;
     }
 }

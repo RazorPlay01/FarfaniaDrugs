@@ -1,6 +1,7 @@
 {
   "block.farfaniadrugs.marijuana_crop": "Marijuana Seed",
   "item.farfaniadrugs.marijuana": "Marijuana",
+  "item.farfaniadrugs.marijuana_cigarette": "Marijuana Cigarette",
 
   "block.farfaniadrugs.cocaine_crop": "Cocaine Seed",
   "item.farfaniadrugs.cocaine_leaf": "Cocaine Leaf",
@@ -32,5 +33,7 @@
   "effect.farfaniadrugs.marijuana_effect": "Marijuana",
   "effect.farfaniadrugs.methamphetamine_effect": "Methamphetamine",
 
-  "itemGroup.farfadrugs": "Farfania Drugs"
+  "itemGroup.farfadrugs": "Farfania Drugs",
+
+  "item.consume.error": "ERROR!!!"
 }

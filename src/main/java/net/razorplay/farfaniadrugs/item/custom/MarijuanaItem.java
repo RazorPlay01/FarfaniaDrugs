@@ -8,6 +8,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.util.PlayerUtil;
@@ -33,6 +34,7 @@ public class MarijuanaItem extends Item {
             //return ActionResult.func_233538_a_(stack, worldIn.isRemote());
             return super.onItemRightClick(worldIn, player, handIn);
         } else {
+            player.sendStatusMessage(new TranslationTextComponent("item.consume.error"),true);
             return new ActionResult<>(ActionResultType.FAIL, player.getHeldItem(handIn));
         }
     }

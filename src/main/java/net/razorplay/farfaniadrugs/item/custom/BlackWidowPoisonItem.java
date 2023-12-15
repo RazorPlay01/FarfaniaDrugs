@@ -11,6 +11,9 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,6 +54,7 @@ public class BlackWidowPoisonItem extends Item {
         if (PlayerUtil.canPlayerConsumeItem(playerIn, PlayerUtil.ModEffect.BLACK_WIDOW_POISON_EFFECT)) {
             return super.onItemRightClick(worldIn, playerIn, handIn);
         } else {
+            playerIn.sendStatusMessage(new TranslationTextComponent("item.consume.error"),true);
             return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         }
     }

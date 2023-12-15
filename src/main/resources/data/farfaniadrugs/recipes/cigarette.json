@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "farfaniadrugs:dried_tobacco_leaf"
+    }
+  ],
+  "result": {
+    "item": "farfaniadrugs:cigarette"
+  }
+}

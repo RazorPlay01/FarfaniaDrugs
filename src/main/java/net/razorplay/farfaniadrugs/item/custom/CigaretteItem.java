@@ -7,6 +7,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.item.ModItems;
@@ -54,6 +55,7 @@ public class CigaretteItem extends Item {
             return super.onItemRightClick(worldIn, playerIn, handIn);
         } else {
             // El jugador no puede consumir el ítem debido al efecto de poción activo
+            playerIn.sendStatusMessage(new TranslationTextComponent("item.consume.error"),true);
             return new ActionResult<>(ActionResultType.FAIL, playerIn.getHeldItem(handIn));
         }
     }

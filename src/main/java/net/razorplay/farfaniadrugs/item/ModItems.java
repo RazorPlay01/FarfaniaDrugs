@@ -20,6 +20,8 @@ public class ModItems {
                     .group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> MARIJUANA = ITEMS.register("marijuana",
             () -> new MarijuanaItem(new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
+    public static final RegistryObject<Item> MARIJUANA_CIGARETTE = ITEMS.register("marijuana_cigarette",
+            () -> new MarijuanaItem(new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxStackSize(20)));
 
     //COCAINE
     public static final RegistryObject<Item> COCAINE_SEED = ITEMS.register("cocaine_seed",

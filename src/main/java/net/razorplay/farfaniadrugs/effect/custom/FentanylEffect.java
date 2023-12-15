@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FentanylEffect extends Effect {
-    private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/deconverge.json");
-    private static boolean effectApplied = false;
+    private final ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/deconverge.json");
+
     public FentanylEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -26,20 +27,18 @@ public class FentanylEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
-            effectApplied = entityLivingBaseIn.getPersistentData().getBoolean("effectApplied");
-            if (!effectApplied) {
-                FarfaniaDrugs.loadCustomShader(shader);
-                entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", true);
-                //effectApplied = true;
-            }
+            CompoundNBT playerData = entityLivingBaseIn.getPersistentData();
+            playerData.putBoolean("effectApplied", true);
+            playerData.putString("customShader", shader.getPath());
         }
     }
 
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
-        FarfaniaDrugs.loadDefaultShader();
-        entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", false);
-        //effectApplied = false;
+        PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
+        CompoundNBT playerData = player.getPersistentData();
+        playerData.putBoolean("effectApplied", false);
+        playerData.putString("customShader", FarfaniaDrugs.DEFAULT_SHADER.getPath());
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
@@ -48,7 +47,7 @@ public class FentanylEffect extends Effect {
         return true;
     }
     public static void resetEffectApplied(PlayerEntity player) {
-        player.getPersistentData().putBoolean("effectApplied", false);
-        effectApplied = false;
+        CompoundNBT playerD = player.getPersistentData();
+        playerD.putBoolean("effectApplied", false);
     }
 }

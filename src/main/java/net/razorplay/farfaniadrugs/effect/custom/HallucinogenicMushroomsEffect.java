@@ -3,6 +3,7 @@ package net.razorplay.farfaniadrugs.effect.custom;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
@@ -14,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HallucinogenicMushroomsEffect extends Effect {
-    private ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/wobble.json");
-    private static boolean effectApplied = false;
+    private final ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/wobble.json");
+    private static boolean isEffectApplied = false;
+
     private int timer;
     public HallucinogenicMushroomsEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
@@ -24,34 +26,34 @@ public class HallucinogenicMushroomsEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.isPotionActive(this)) {
-            effectApplied = entityLivingBaseIn.getPersistentData().getBoolean("effectApplied");
-            if (!effectApplied) {
-                FarfaniaDrugs.loadCustomShader(shader);
-                entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", true);
-                //effectApplied = true;
-            }
+            CompoundNBT playerData = entityLivingBaseIn.getPersistentData();
+            playerData.putBoolean("effectApplied", true);
+            playerData.putString("customShader", shader.getPath());
         }
     }
 
     @Override
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
-        FarfaniaDrugs.loadDefaultShader();
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
+        CompoundNBT playerData = player.getPersistentData();
         player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
-        entityLivingBaseIn.getPersistentData().putBoolean("effectApplied", false);
-        //effectApplied = false;
+        playerData.putBoolean("effectApplied", false);
+        playerData.putString("customShader", FarfaniaDrugs.DEFAULT_SHADER.getPath());
+        isEffectApplied = false;
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);
     }
 
     @Override
     public boolean isReady(int duration, int amplifier) {
-        if (!effectApplied) {
+        if (!isEffectApplied) {
             timer = duration;
+            isEffectApplied = true;
         }
         return true;
     }
+
     public static void resetEffectApplied(PlayerEntity player) {
-        player.getPersistentData().putBoolean("effectApplied", false);
-        effectApplied = false;
+        CompoundNBT playerD = player.getPersistentData();
+        playerD.putBoolean("effectApplied", false);
     }
 }

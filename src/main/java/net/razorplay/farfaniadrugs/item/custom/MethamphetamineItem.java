@@ -38,6 +38,7 @@ public class MethamphetamineItem extends Item {
             //return ActionResult.func_233538_a_(stack, worldIn.isRemote());
             return super.onItemRightClick(worldIn, player, handIn);
         } else {
+            player.sendStatusMessage(new TranslationTextComponent("item.consume.error"),true);
             return new ActionResult<>(ActionResultType.FAIL, player.getHeldItem(handIn));
         }
     }

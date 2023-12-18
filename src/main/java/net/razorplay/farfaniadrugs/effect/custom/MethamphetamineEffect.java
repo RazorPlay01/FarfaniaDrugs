@@ -11,9 +11,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MethamphetamineEffect extends Effect {
     private final ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/blur.json");
     private static boolean isEffectApplied = false;

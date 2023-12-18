@@ -5,14 +5,9 @@ import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CigaretteEffect extends Effect {
     private final ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/bumpy.json");

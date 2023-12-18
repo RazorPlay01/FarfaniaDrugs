@@ -1,21 +1,13 @@
 package net.razorplay.farfaniadrugs.effect.custom;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FentanylEffect extends Effect {
     private final ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/deconverge.json");

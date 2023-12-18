@@ -11,12 +11,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 import net.razorplay.farfaniadrugs.effect.ModEffects;
 import net.razorplay.farfaniadrugs.effect.custom.*;
 import net.razorplay.farfaniadrugs.util.PlayerUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -10,7 +10,6 @@ import net.razorplay.farfaniadrugs.FarfaniaDrugs;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
-
     private static int packetId = 0;
     private static int id() {
         return packetId++;

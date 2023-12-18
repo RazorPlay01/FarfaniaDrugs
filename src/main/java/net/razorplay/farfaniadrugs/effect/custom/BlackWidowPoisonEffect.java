@@ -10,7 +10,6 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.razorplay.farfaniadrugs.FarfaniaDrugs;
-import net.razorplay.farfaniadrugs.effect.ModEffects;
 
 public class BlackWidowPoisonEffect extends Effect {
     private final ResourceLocation shader = new ResourceLocation("farfaniadrugs:shaders/post/sobel.json");

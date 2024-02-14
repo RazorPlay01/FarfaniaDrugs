@@ -1,0 +1,42 @@
+{
+  "block.farfaniadrugs.marijuana_crop": "Semilla de Totihuana",
+  "item.farfaniadrugs.marijuana": "Totihuana",
+  "item.farfaniadrugs.marijuana_cigarette": "Cigarillo de Totihuana",
+  "item.farfaniadrugs.marijuana_cigarette_1": "Cigarillo de Totihuana",
+  "item.farfaniadrugs.marijuana_cigarette_2": "Cigarillo de Totihuana",
+  "item.farfaniadrugs.marijuana_cigarette_3": "Cigarillo de Totihuana",
+
+  "block.farfaniadrugs.cocaine_crop": "Semilla de Totaina",
+  "item.farfaniadrugs.cocaine_leaf": "Hoja de Totaina",
+  "item.farfaniadrugs.cocaine": "Totaina",
+
+  "block.farfaniadrugs.hallucinogenic_mushrooms_crop": "Hongo Alucinógeno",
+  "item.farfaniadrugs.cooked_hallucinogenic_mushrooms": "Hongo Alucinógeno Asado",
+
+  "block.farfaniadrugs.tobacco_crop": "Semilla de Tabaco",
+  "item.farfaniadrugs.tobacco_leaf": "Hoja de Tabaco",
+  "item.farfaniadrugs.dried_tobacco_leaf": "Hoja de Tabaco Seca",
+  "item.farfaniadrugs.cigarette": "Cigarillo",
+  "item.farfaniadrugs.cigarette_1": "Cigarillo",
+  "item.farfaniadrugs.cigarette_2": "Cigarillo",
+  "item.farfaniadrugs.cigarette_3": "Cigarillo",
+
+  "item.farfaniadrugs.methamphetamine": "Totanfetamina",
+
+  "item.farfaniadrugs.black_widow_poison": "Veneno de Viuda Negra",
+
+  "item.farfaniadrugs.fentanyl": "Totanilo",
+
+
+  "effect.farfaniadrugs.fentanyl_effect": "Totanilo",
+  "effect.farfaniadrugs.cocaine_effect": "Totaina",
+  "effect.farfaniadrugs.cigarette_effect": "Cigarillo",
+  "effect.farfaniadrugs.black_widow_poison_effect": "Veneno de Viuda Negra",
+  "effect.farfaniadrugs.hallucinogenic_mushrooms_effect": "Hongo Alucinógeno",
+  "effect.farfaniadrugs.marijuana_effect": "Totihuana",
+  "effect.farfaniadrugs.methamphetamine_effect": "Totanfetamina",
+
+  "itemGroup.farfadrugs": "Farfania Drugs",
+
+  "item.consume.error": "No puedes consumir más drogas en este momento!!!"
+}

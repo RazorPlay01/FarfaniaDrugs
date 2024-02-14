@@ -32,7 +32,7 @@ public class MethamphetamineEffect extends Effect {
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         CompoundNBT playerData = player.getPersistentData();
-        player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 2 * timer, 1));
+        player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 3 * timer, 1));
         playerData.putBoolean("effectApplied", false);
         playerData.putString("customShader", FarfaniaDrugs.DEFAULT_SHADER.getPath());
         isEffectApplied = false;

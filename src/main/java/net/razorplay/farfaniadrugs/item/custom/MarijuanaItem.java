@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarijuanaItem extends Item {
-    private int timer = 20;
+    private int timer = 120;
 
     public MarijuanaItem(Properties properties) {
         super(properties);
@@ -31,7 +31,6 @@ public class MarijuanaItem extends Item {
             player.addPotionEffect(new EffectInstance(ModEffects.MARIJUANA_EFFECT.get(), 20 * timer));
 
             stack.shrink(1);
-            //return ActionResult.func_233538_a_(stack, worldIn.isRemote());
             return super.onItemRightClick(worldIn, player, handIn);
         } else {
             player.sendStatusMessage(new TranslationTextComponent("item.consume.error"),true);

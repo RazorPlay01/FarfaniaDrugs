@@ -32,7 +32,7 @@ public class MarijuanaEffect extends Effect {
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         CompoundNBT playerData = player.getPersistentData();
-        player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2 * timer, 0));
+        player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 3 * timer, 0));
         player.addPotionEffect(new EffectInstance(Effects.HUNGER, 2 * timer, 0));
         playerData.putBoolean("effectApplied", false);
         playerData.putString("customShader", FarfaniaDrugs.DEFAULT_SHADER.getPath());

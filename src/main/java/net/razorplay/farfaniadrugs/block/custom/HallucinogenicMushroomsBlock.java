@@ -13,7 +13,7 @@ import java.util.*;
 
 public class HallucinogenicMushroomsBlock extends BlockItem {
     private List<EffectInstance> firstEffectsList = new ArrayList<>();
-    private int timer = 20;
+    private int timer = 120;
 
     public HallucinogenicMushroomsBlock(Block blockIn, Properties builder) {
         super(blockIn, builder);

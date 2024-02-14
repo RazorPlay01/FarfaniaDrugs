@@ -33,7 +33,7 @@ public class BlackWidowPoisonEffect extends Effect {
     public void removeAttributesModifiersFromEntity(LivingEntity entityLivingBaseIn, AttributeModifierManager attributeMapIn, int amplifier) {
         PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
         CompoundNBT playerData = player.getPersistentData();
-        player.addPotionEffect(new EffectInstance(Effects.POISON, timer * 2, 0));
+        player.addPotionEffect(new EffectInstance(Effects.POISON, timer / 2, 0));
         playerData.putBoolean("effectApplied", false);
         playerData.putString("customShader", FarfaniaDrugs.DEFAULT_SHADER.getPath());
         isEffectApplied = false;

@@ -21,7 +21,15 @@ public class ModItems {
     public static final RegistryObject<Item> MARIJUANA = ITEMS.register("marijuana",
             () -> new MarijuanaItem(new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP)));
     public static final RegistryObject<Item> MARIJUANA_CIGARETTE = ITEMS.register("marijuana_cigarette",
-            () -> new MarijuanaItem(new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxStackSize(20)));
+            () -> new MarijuanaCigaretteItem(new Item.Properties().group(ModItemGroup.FARFADRUGS_GROUP).maxStackSize(10)));
+    public static final RegistryObject<Item> MARIJUANA_CIGARETTE_1 = ITEMS.register("marijuana_cigarette_1",
+            () -> new MarijuanaCigaretteItem(new Item.Properties().maxStackSize(10)));
+
+    public static final RegistryObject<Item> MARIJUANA_CIGARETTE_2 = ITEMS.register("marijuana_cigarette_2",
+            () -> new MarijuanaCigaretteItem(new Item.Properties().maxStackSize(10)));
+
+    public static final RegistryObject<Item> MARIJUANA_CIGARETTE_3 = ITEMS.register("marijuana_cigarette_3",
+            () -> new MarijuanaCigaretteItem(new Item.Properties().maxStackSize(10)));
 
     //COCAINE
     public static final RegistryObject<Item> COCAINE_SEED = ITEMS.register("cocaine_seed",

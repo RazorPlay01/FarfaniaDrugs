@@ -26,7 +26,7 @@ import net.razorplay.farfaniadrugs.util.PlayerUtil;
 import java.util.*;
 
 public class BlackWidowPoisonItem extends Item {
-    private int timer = 20;
+    private int timer = 120;
 
     public BlackWidowPoisonItem(Properties group) {
         super(new Item.Properties()

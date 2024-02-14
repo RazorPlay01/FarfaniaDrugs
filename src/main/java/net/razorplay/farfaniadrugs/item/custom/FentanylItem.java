@@ -28,7 +28,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FentanylItem extends Item {
-    private int timer = 20;
+    private int timer = 120;
 
     public FentanylItem(Properties properties) {
         super(new Item.Properties()

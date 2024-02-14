@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MethamphetamineItem extends Item {
-    private int timer = 20;
+    private int timer = 60;
 
     public MethamphetamineItem(Properties properties) {
         super(properties);

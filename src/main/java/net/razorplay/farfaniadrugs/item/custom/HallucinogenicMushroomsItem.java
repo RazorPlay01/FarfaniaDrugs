@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HallucinogenicMushroomsItem extends Item {
-    private int timer = 20;
+    private int timer = 120;
 
     public HallucinogenicMushroomsItem(Properties properties) {
         super(new Item.Properties()
